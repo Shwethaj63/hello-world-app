@@ -15,15 +15,18 @@ jobs:
 
     - name: Log in to Amazon ECR
       id: ecr-login
-      uses: aws-actions/amazon-ecr-login@v2
+      uses: aws-actions/amazon-ecr-login@v1
+      env:
+        AWS_REGION: ap-southeast-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       with:
-        region: ap-southeast-1
         mask-password: true
 
     - name: Build Docker image
       env:
         ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-southeast-1.amazonaws.com
-        ECR_REPOSITORY: aws_ecr_repository
+        ECR_REPOSITORY: hello-world-app
         IMAGE_TAG: latest
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -38,7 +41,7 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: hello-world-task.json
-        container-name: hello-world
+        container-name: hello-world-app
         image: ${{ env.IMAGE_URI }}
 
     - name: Deploy to ECS
@@ -49,7 +52,7 @@ jobs:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         wait-for-service-stability: true
       env:
+        AWS_REGION: ap-southeast-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: ap-southeast-1  # Add region here
 
