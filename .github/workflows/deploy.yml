@@ -16,7 +16,14 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20' # Update to Node.js 20 or later
+        node-version: '20' # Use Node.js version 20
+        check-latest: true
+        persist-credentials: false
+
+    - name: Use Node.js version 20.14.0
+      run: |
+        sudo apt-get install -y nodejs=20.14.0
+        sudo apt-get install -y npm=20.14.0
 
     - name: Log in to Amazon ECR
       id: ecr-login
@@ -60,6 +67,7 @@ jobs:
         AWS_REGION: ap-southeast-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 
 
 
