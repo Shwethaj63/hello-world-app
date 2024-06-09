@@ -1,0 +1,36 @@
+{
+    "family": "hello-world-task",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "executionRoleArn": "arn:aws:iam::590184143302:role/ecsTaskExecutionRole-1",
+    "containerDefinitions": [
+      {
+        "name": "hello-world",
+        "image": "590184143302.dkr.ecr.ap-southeast-1.amazonaws.com/aws_ecr_repository:latest",
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 3000,
+            "hostPort": 3000
+          }
+        ]
+      }
+    ],
+    "networkConfiguration": {
+      "awsvpcConfiguration": {
+        "subnets": [
+          "subnet-08c38bb5e265934d6",  # Replace with actual Subnet ID for hello-subnet-1
+          "subnet-0455678a9cfa00967"   # Replace with actual Subnet ID for hello-subnet-2
+        ],
+        "securityGroups": [
+          "sg-02c34935d081c3541"      # Replace with actual Security Group ID for hello-world-sg
+        ],
+        "assignPublicIp": "ENABLED"
+      }
+    }
+  }
+  

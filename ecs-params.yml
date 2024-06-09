@@ -1,0 +1,11 @@
+version: 1
+task_definition:
+  task_execution_role: arn:aws:iam::<your-account-id>:role/ecsTaskExecutionRole
+  services:
+    hello-world-app:
+      essential: true
+      memory: 512
+      cpu: 256
+      port_mappings:
+        - container_port: 3000
+          host_port: 3000
