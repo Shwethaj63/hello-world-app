@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4 # Update to the latest version
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v4 # Ensure this uses Node.js 20
+      uses: actions/setup-node@v4
       with:
-        node-version: '20' # Use Node.js 20
+        node-version: '20'
 
     - name: Log in to Amazon ECR
       env:
@@ -24,6 +24,7 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
+        echo "Logging in to Amazon ECR..."
         aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com
 
     - name: Build Docker image
@@ -32,11 +33,13 @@ jobs:
         ECR_REPOSITORY: hello-world-app
         IMAGE_TAG: latest
       run: |
+        echo "Building Docker image..."
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         echo "IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
     - name: Push Docker image to Amazon ECR
       run: |
+        echo "Pushing Docker image to Amazon ECR..."
         docker push ${{ env.IMAGE_URI }}
 
     - name: Register ECS Task Definition
@@ -58,8 +61,6 @@ jobs:
         AWS_REGION: ap-southeast-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-
 
 
 
