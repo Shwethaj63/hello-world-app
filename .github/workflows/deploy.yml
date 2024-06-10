@@ -22,7 +22,7 @@ jobs:
       id: ecr-login
       uses: aws-actions/amazon-ecr-login@v2 # Ensure you use the latest version
       with:
-        registry: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+        registries: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
         role-arn: ${{ secrets.AWS_ROLE_ARN }}
 
     - name: Build Docker image
