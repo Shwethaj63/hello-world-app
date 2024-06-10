@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4 # Updated to the latest version
+      uses: actions/checkout@v4 # Update to the latest version
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4 # Ensure this uses Node.js 20
       with:
-        node-version: '20' # Update to Node.js 20 or later
+        node-version: '20' # Use Node.js 20
 
     - name: Log in to Amazon ECR
       env:
