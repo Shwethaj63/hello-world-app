@@ -9,7 +9,7 @@
     "executionRoleArn": "arn:aws:iam::590184143302:role/ecsTaskExecutionRole-1",
     "containerDefinitions": [
       {
-        "name": "hello-world",
+        "name": "hello-world-app",
         "image": "590184143302.dkr.ecr.ap-southeast-1.amazonaws.com/aws_ecr_repository:latest",
         "essential": true,
         "portMappings": [
