@@ -23,11 +23,11 @@
     "networkConfiguration": {
       "awsvpcConfiguration": {
         "subnets": [
-          "subnet-08c38bb5e265934d6",  # Replace with actual Subnet ID for hello-subnet-1
-          "subnet-0455678a9cfa00967"   # Replace with actual Subnet ID for hello-subnet-2
+          "subnet-08c38bb5e265934d6",  
+          "subnet-0455678a9cfa00967"  
         ],
         "securityGroups": [
-          "sg-02c34935d081c3541"      # Replace with actual Security Group ID for hello-world-sg
+          "sg-02c34935d081c3541"      
         ],
         "assignPublicIp": "ENABLED"
       }
